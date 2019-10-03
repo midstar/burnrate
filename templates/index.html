@@ -1,0 +1,104 @@
+<html>
+<head>
+<title>BurnRate</title>
+<link rel="icon" type="image/png" href="/logo.png">
+<style>
+
+#total-cost {
+    font-family: "Courier New";
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    border-style: double;
+}
+
+@media all and (min-width: 1500px) {
+#total-cost{
+    font-size: 150px;
+  }
+}
+
+@media all and (max-width: 1499px) and (min-width: 1000px) {
+#total-cost{
+    font-size: 100px;
+  }
+}
+
+@media all and (max-width: 999px) and (min-width: 500px) {
+#total-cost{
+    font-size: 50px;
+  }
+}
+
+#settings {
+}
+
+</style>
+</head>
+<script>
+
+var totalCost = 0;
+
+window.onload = function() {
+    document.getElementById("cost-per-hour").value = "1000";
+    document.getElementById("currency").value = "kr";
+    document.getElementById("nbr-resources").value = "1";
+    updateTotalCost();
+}
+
+function updateTotalCost() {
+    var costPerHour = document.getElementById("cost-per-hour").value;
+    var nbrResources = document.getElementById("nbr-resources").value;
+    var totalCostPer200ms = costPerHour * nbrResources / 60 / 60 / 5;
+    totalCost += totalCostPer200ms;
+    displayCost();
+    setTimeout(updateTotalCost, 200);
+}
+
+function displayCost() {
+    totalCostRounded = Number(Math.round(totalCost+ "e+2")  + "e-2")
+    var totalCostStr = Number(totalCostRounded).toLocaleString(
+        undefined, // leave undefined to use the browser's locale,
+                   // or use a string like 'en-US' to override it.
+        { minimumFractionDigits: 2 });
+    var output = totalCostStr + " " + document.getElementById("currency").value;
+    document.getElementById("total-cost").innerHTML = output;    
+}
+
+function resetCost() {
+    totalCost=0;
+    displayCost();
+}
+
+function oneLessResource() {
+    document.getElementById("nbr-resources").value--;
+}
+
+function oneMoreResource() {
+    document.getElementById("nbr-resources").value++;
+}
+
+</script>
+<body>
+
+  <div id="total-cost">
+  0
+  </div>
+
+  <div id="settings">
+    Cost/h:
+    <input id="cost-per-hour" type="number" min="0" size="3">
+    <input id="currency" size="1">
+
+    <br/>
+    Nbr resources:
+    <button onclick="oneLessResource();">-</button>
+    <input id="nbr-resources" type="number" min="0" size="2">
+    <button onclick="oneMoreResource();">+</button>
+
+    <br/>
+    <button onclick="resetCost();">Reset</button>
+  </div>
+
+</body>
+</html>
