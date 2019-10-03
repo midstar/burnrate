@@ -31,7 +31,40 @@
 }
 
 #settings {
+    position:absolute;
+    bottom:30px;
+    width:98%;
 }
+
+#cost-per-hour-group {
+    display: inline;
+    margin-right: 20px;
+}
+
+#nbr-resources-group {
+    display: inline;
+    margin-right: 20px;
+    position: fixed; 
+    left: 50%; 
+    margin-left: -100px; 
+}
+
+#reset-group {
+    display: inline;
+    float: right;
+}
+
+
+#cost-per-hour {
+    font-family:"monospace";
+    width:70px;"
+}
+
+#nbr-resources {
+    font-family:"monospace";
+    width:40px;"
+}
+
 
 </style>
 </head>
@@ -86,18 +119,23 @@ function oneMoreResource() {
   </div>
 
   <div id="settings">
-    Cost/h:
-    <input id="cost-per-hour" type="number" min="0" size="3">
-    <input id="currency" size="1">
+    <div id="cost-per-hour-group">
+      Cost/h:
+      <!--<input id="cost-per-hour" type="number" min="0" size="1" style="font-family:monospace">-->
+      <input id="cost-per-hour" type="number" min="0" size="1">
+      <input id="currency" size="1">
+    </div>
 
-    <br/>
-    Nbr resources:
-    <button onclick="oneLessResource();">-</button>
-    <input id="nbr-resources" type="number" min="0" size="2">
-    <button onclick="oneMoreResource();">+</button>
+    <div id="nbr-resources-group">
+      Nbr resources:
+      <button onclick="oneLessResource();">-</button>
+      <input id="nbr-resources" type="number" min="0" size="2">
+      <button onclick="oneMoreResource();">+</button>
+    </div>
 
-    <br/>
-    <button onclick="resetCost();">Reset</button>
+    <div id="reset-group">
+      <button onclick="resetCost();">Reset</button>
+    </div>
   </div>
 
 </body>
