@@ -6,28 +6,10 @@
 
 #total-cost {
     font-family: "Courier New";
-    font-size: 20px;
+    font-size: 20px; /* script will override */
     font-weight: bold;
     text-align: center;
     border-style: double;
-}
-
-@media all and (min-width: 1500px) {
-#total-cost{
-    font-size: 200px;
-  }
-}
-
-@media all and (max-width: 1499px) and (min-width: 1000px) {
-#total-cost{
-    font-size: 150px;
-  }
-}
-
-@media all and (max-width: 999px) and (min-width: 500px) {
-#total-cost{
-    font-size: 100px;
-  }
 }
 
 #settings {
@@ -91,7 +73,7 @@ window.onload = function() {
     document.getElementById("currency").value = "kr";
     document.getElementById("nbr-resources").value = "1";
     updateTotalCost();
-    windowResized();
+    setTotalCostFont();
 }
 
 var totalCost = 0;
@@ -132,18 +114,17 @@ function oneMoreResource() {
     document.getElementById("nbr-resources").value++;
 }
 
-function windowResized() {
-    document.getElementById("screen-width").innerHTML = window.innerWidth;   
+function setTotalCostFont() {
+    var fontSize = window.innerWidth/8;
+    var totalCostElem = document.getElementById("total-cost");
+    totalCostElem.style.setProperty('font-size', fontSize + "px");
 }
 
 </script>
-<body onresize="windowResized()">
+<body onresize="setTotalCostFont()">
 
   <div id="total-cost">
   0
-  </div>
-
-  <div id="screen-width">
   </div>
 
   <div id="settings">
