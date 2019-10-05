@@ -70,7 +70,6 @@
 </head>
 <script>
 
-var totalCost = 0;
 
 window.onload = function() {
     document.getElementById("cost-per-hour").value = "1000";
@@ -79,17 +78,23 @@ window.onload = function() {
     updateTotalCost();
 }
 
+var totalCost = 0;
+var lastDate = new Date();
 function updateTotalCost() {
+    var currentDate = new Date();
+    var timeDiffMs = currentDate.getTime() - lastDate.getTime();
+    lastDate = currentDate;
+
     var costPerHour = document.getElementById("cost-per-hour").value;
     var nbrResources = document.getElementById("nbr-resources").value;
-    var totalCostPer200ms = costPerHour * nbrResources / 60 / 60 / 5;
-    totalCost += totalCostPer200ms;
+    var totalCostPerMs = costPerHour * nbrResources / 60 / 60 / 1000;
+    totalCost += totalCostPerMs * timeDiffMs ;
     displayCost();
     setTimeout(updateTotalCost, 200);
 }
 
 function displayCost() {
-    totalCostRounded = Number(Math.round(totalCost+ "e+2")  + "e-2")
+    var totalCostRounded = Number(Math.round(totalCost+ "e+2")  + "e-2")
     var totalCostStr = Number(totalCostRounded).toLocaleString(
         undefined, // leave undefined to use the browser's locale,
                    // or use a string like 'en-US' to override it.
