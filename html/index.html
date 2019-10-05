@@ -14,19 +14,19 @@
 
 @media all and (min-width: 1500px) {
 #total-cost{
-    font-size: 150px;
+    font-size: 200px;
   }
 }
 
 @media all and (max-width: 1499px) and (min-width: 1000px) {
 #total-cost{
-    font-size: 100px;
+    font-size: 150px;
   }
 }
 
 @media all and (max-width: 999px) and (min-width: 500px) {
 #total-cost{
-    font-size: 50px;
+    font-size: 100px;
   }
 }
 
@@ -34,6 +34,12 @@
     position:absolute;
     bottom:30px;
     width:98%;
+    font-size: 30px;
+}
+
+button, input {
+    font-family:"monospace";
+    font-size: 30px;
 }
 
 #cost-per-hour-group {
@@ -56,13 +62,22 @@
 
 
 #cost-per-hour {
-    font-family:"monospace";
-    width:70px;"
+    width:100px;"
 }
 
+#currency {
+    width:60px;"
+}
+
+
 #nbr-resources {
-    font-family:"monospace";
-    width:40px;"
+    width:50px;"
+}
+
+.inc-dec-button {
+  width:35px;
+  font-weight: bold;
+
 }
 
 
@@ -76,6 +91,7 @@ window.onload = function() {
     document.getElementById("currency").value = "kr";
     document.getElementById("nbr-resources").value = "1";
     updateTotalCost();
+    windowResized();
 }
 
 var totalCost = 0;
@@ -116,11 +132,18 @@ function oneMoreResource() {
     document.getElementById("nbr-resources").value++;
 }
 
+function windowResized() {
+    document.getElementById("screen-width").innerHTML = window.innerWidth;   
+}
+
 </script>
-<body>
+<body onresize="windowResized()">
 
   <div id="total-cost">
   0
+  </div>
+
+  <div id="screen-width">
   </div>
 
   <div id="settings">
@@ -133,9 +156,9 @@ function oneMoreResource() {
 
     <div id="nbr-resources-group">
       Nbr resources:
-      <button onclick="oneLessResource();">-</button>
+      <button class="inc-dec-button" onclick="oneLessResource();">-</button>
       <input id="nbr-resources" type="number" min="0" size="2">
-      <button onclick="oneMoreResource();">+</button>
+      <button class="inc-dec-button" onclick="oneMoreResource();">+</button>
     </div>
 
     <div id="reset-group">
